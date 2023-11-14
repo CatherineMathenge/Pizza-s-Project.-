@@ -1,0 +1,43 @@
+/* src/App.css */
+
+/* Global styles for the entire app */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+/* Header component styles */
+.header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* PizzaList component styles */
+.available-pizzas {
+  margin-top: 2rem;
+}
+
+.available-pizzas h2 {
+  color: #333;
+}
+
+.available-pizzas ul {
+  list-style: none;
+  padding: 0;
+}
+
+.available-pizzas li {
+  margin-bottom: 0.5rem;
+}
+
+/* PizzaOrder component styles */
+.order-summary {
+  margin-top: 2rem;
+}
+
+.order-summary h2 {
+  color: #333;
+}
+
+/* Add more styles as needed */
