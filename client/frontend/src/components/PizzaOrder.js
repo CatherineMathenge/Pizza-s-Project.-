@@ -10,7 +10,6 @@ const PizzaOrder = () => {
 
   return (
     <div>
-      <h2>Order Your Pizzas</h2>
       {/* Render pizza options and allow users to add to order */}
       {/* Use PizzaList component here */}
       {/* Display selected pizzas and total */}

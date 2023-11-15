@@ -1,39 +1,56 @@
-// App.js
-import React, { useState } from 'react';
+// src/App.js
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header';
 import PizzaList from './components/PizzaList';
 import PizzaOrder from './components/PizzaOrder';
 import Dashboard from './components/Dashboard';
 import AddPizzaForm from './components/AddPizzaForm';
-import EditPizzaForm from './components/EditPizzaForm'; // Import EditPizzaForm component
 import './App.css';
 
 const App = () => {
-  const [pizzas, setPizzas] = useState([
-    { id: 1, name: 'Margherita', price: '$10.99' },
-    { id: 2, name: 'Pepperoni', price: '$12.99' },
-    // Add more pizza data as needed
-  ]);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [pizzas, setPizzas] = useState([]);
 
-  // Function to add a new pizza
-  const addPizza = (newPizza) => {
-    setPizzas((prevPizzas) => [...prevPizzas, newPizza]);
+  // Function to handle user login
+  const loginUser = (userCredentials) => {
+    // Implement logic to authenticate the user and set isAuthenticated to true
+    setIsAuthenticated(true);
   };
 
-  // Function to edit an existing pizza
-  const editPizza = (updatedPizza) => {
-    setPizzas((prevPizzas) =>
-      prevPizzas.map((pizza) => (pizza.id === updatedPizza.id ? updatedPizza : pizza))
-    );
+  // Fetch pizzas when the component mounts
+  useEffect(() => {
+    // You need to implement this fetchPizzas function to get pizzas from your server
+    const fetchPizzas = async () => {
+      try {
+        // Fetch pizzas from your server
+        const response = await fetch('your_api_endpoint/pizzas');
+        const data = await response.json();
+        setPizzas(data);
+      } catch (error) {
+        console.error('Error fetching pizzas:', error);
+      }
+    };
+
+    // Call the fetchPizzas function
+    fetchPizzas();
+  }, []);
+
+  // Function to handle adding a new pizza
+  const addPizza = (newPizza) => {
+    setPizzas((prevPizzas) => [...prevPizzas, newPizza]);
   };
 
   return (
     <div>
       <Header />
-      <Dashboard addPizza={addPizza} />
-      {/* Pass pizzas and editPizza to PizzaList */}
-      <PizzaList pizzas={pizzas} editPizza={editPizza} />
-      <PizzaOrder />
+      <Dashboard isAuthenticated={isAuthenticated} loginUser={loginUser} />
+      {isAuthenticated && (
+        <>
+          <AddPizzaForm addPizza={addPizza} />
+          <PizzaList pizzas={pizzas} />
+          <PizzaOrder />
+        </>
+      )}
     </div>
   );
 };
